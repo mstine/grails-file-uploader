@@ -31,7 +31,7 @@ class FileUploaderController {
 			def msg = messageSource.getMessage("fileupload.upload.nofile", null, request.locale)
 			log.debug msg
 			flash.message = msg
-			redirect controller: params.errorController, action: params.errorAction
+			redirect controller: params.errorController, action: params.errorAction, id: params.errorId
 			return
 		}
 		
@@ -44,7 +44,7 @@ class FileUploaderController {
 				def msg = messageSource.getMessage("fileupload.upload.unauthorizedExtension", [fileExtension, config.allowedExtensions] as Object[], request.locale)
 				log.debug msg
 				flash.message = msg
-				redirect controller: params.errorController, action: params.errorAction
+				redirect controller: params.errorController, action: params.errorAction, id: params.errorId
 				return
 			}
 		}
@@ -58,7 +58,7 @@ class FileUploaderController {
 			if (file.size > config.maxSize) { //if filesize is bigger than allowed
 				log.debug "FileUploader plugin received a file bigger than allowed. Max file size is ${maxSizeInKb} kb"
 				flash.message = messageSource.getMessage("fileupload.upload.fileBiggerThanAllowed", [maxSizeInKb] as Object[], request.locale)
-				redirect controller: params.errorController, action: params.errorAction
+				redirect controller: params.errorController, action: params.errorAction, id: params.errorId
 				return
 			}
 		} 
@@ -87,7 +87,7 @@ class FileUploaderController {
 		ufile.downloads = 0
 		ufile.save()
 		
-		redirect controller: params.successController, action: params.successAction, params:[ufileId:ufile.id]
+		redirect controller: params.successController, action: params.successAction, id: params.successId, params:[ufileId:ufile.id]
 	}
 
 }

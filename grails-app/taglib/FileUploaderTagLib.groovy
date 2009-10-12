@@ -85,8 +85,22 @@ class FileUploaderTagLib {
 			<input type='hidden' name='upload' value='${upload}' />
 			<input type='hidden' name='errorAction' value='${errorAction}' />
 			<input type='hidden' name='errorController' value='${errorController}' />
+		"""
+		
+		if (attrs.errorId) {
+			tagBody += "<input type='hidden' name='errorId' value='${attrs.errorId}' />"
+		}
+		
+		tagBody += """
 			<input type='hidden' name='successAction' value='${successAction}' />
 			<input type='hidden' name='successController' value='${successController}' />
+		"""
+		
+		if (attrs.successId) {
+			tagBody += "<input type='hidden' name='successId' value='${attrs.successId}' />"
+		}
+		
+		tagBody += """
 			<input type='file' name='file' />
 			<input type='submit' name='submit' value='Submit' />
 		"""
